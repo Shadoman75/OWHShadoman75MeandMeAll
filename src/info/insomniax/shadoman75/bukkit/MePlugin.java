@@ -37,12 +37,13 @@ public final class MePlugin extends JavaPlugin {
 			// argument loop end...
 			return buffer.toString();
 		}
+		return null;
 		
 	}
-	String message = arrayToString(args);
+	
 	public boolean onCommand(CommandSender sender, Command cmd,
-		String commandLabel, String[] args, String message) {
-		
+		String commandLabel, String[] args) {
+		String message = arrayToString(args);
 		// if someone just happened to type /me and had a message after it...
 		if(cmd.getName().equalsIgnoreCase("me")){
 			if(permissions.has(sender, "meplugin.me")){
