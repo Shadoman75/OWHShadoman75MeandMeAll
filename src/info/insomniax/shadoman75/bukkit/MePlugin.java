@@ -27,7 +27,7 @@ public final class MePlugin extends JavaPlugin {
 	}
 	public PermissionsHandler permissions = null;
 	
-	public boolean arrayToString(String[] args){
+	public String arrayToString(String[] args){
 		if(args.length > 0){
 			// ARGUMENT LOOP START!
 			StringBuilder buffer = new StringBuilder();
@@ -35,21 +35,22 @@ public final class MePlugin extends JavaPlugin {
 				buffer.append(' ').append(args[i]);
 			}
 			// argument loop end...
-			return true;
+			return buffer.toString();
 		}
-		return false;
+		
 	}
+	String message = arrayToString(args);
 	public boolean onCommand(CommandSender sender, Command cmd,
-		String commandLabel, String[] args) {
+		String commandLabel, String[] args, String message) {
 		
 		// if someone just happened to type /me and had a message after it...
 		if(cmd.getName().equalsIgnoreCase("me")){
 			if(permissions.has(sender, "meplugin.me")){
-				if(arrayToString()){//placeholder for now
+				if(message != null){//placeholder for now
 					// PLAYER LOOPZ!
 					for(Player p:((Player)sender).getWorld().getPlayers()){
 						// and the message will be sent here :o
-						p.sendMessage(ChatColor.AQUA + "~" + " " + sender.getName() + buffer.toString());
+						p.sendMessage(ChatColor.AQUA + "~" + " " + sender.getName() + message);
 					}
 					return true;
 				}
@@ -57,9 +58,9 @@ public final class MePlugin extends JavaPlugin {
 		} else {
 		if(cmd.getName().equalsIgnoreCase("meall")){
 			if(permissions.has(sender, "meplugin.all")){
-				if(arraytoString()){ //placeholder for now
+				if(message != null){ //placeholder for now
 					for(Player playr: getServer().getOnlinePlayers()){
-						playr.chat("/me" + buffer.toString());
+						playr.chat("/me" + message);
 					}
 					return true;
 				}
